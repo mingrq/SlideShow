@@ -21,13 +21,13 @@
             android:layout_alignTop="@+id/indicator"
             android:gravity="center" />
 
-        <RadioGroup
+        <LinearLayout
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="#2a000000"
             android:gravity="center"
-            android:orientation="horizontal"></RadioGroup>
+            android:orientation="horizontal"></LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
