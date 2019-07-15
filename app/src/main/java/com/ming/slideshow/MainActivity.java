@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SlideShow slideShow = findViewById(R.id.ss);
-
+        final SlideShow slideShow = findViewById(R.id.ss);
+        final int[] p = {0};
         List<Info> mList = new ArrayList<>();
         Info info = new Info();
         info.setBannerTitle("标题0");
@@ -40,9 +40,18 @@ public class MainActivity extends AppCompatActivity {
         slideShow.setSlideOnItemClickLisenter(new SlideShow.OnItemClickLisenter() {
             @Override
             public void onClickLisenter(int position) {
-                Toast.makeText(MainActivity.this,String.valueOf(position),Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, String.valueOf(position), Toast.LENGTH_LONG).show();
+                if (p[0] == 0) {
+                    slideShow.cancelSlide();
+                    p[0] = 1;
+                }else {
+                    slideShow.startSlide();
+                }
+
             }
         });
         slideShow.commit();
+        slideShow.startSlide();
+
     }
 }

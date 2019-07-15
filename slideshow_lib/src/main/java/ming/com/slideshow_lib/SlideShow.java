@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +38,7 @@ public class SlideShow extends FrameLayout {
     private LinearLayout indicator;
     private TextView title;
     private ViewPager banners;
-
+    private Handler handler;
 
     /**
      * 指示器区域高度
@@ -93,6 +95,7 @@ public class SlideShow extends FrameLayout {
     private boolean isAutoPlay = true;
     private Runnable task;
     private OnItemClickLisenter onItemClickLisenter;
+    private Handler handler1;
 
     public SlideShow(@NonNull Context context) {
         this(context, null);
@@ -126,181 +129,10 @@ public class SlideShow extends FrameLayout {
     }
 
     /**
-     * 获取指示器间距
-     */
-    public float getIndicatorMargin() {
-        return indicatorMargin;
-    }
-
-    /**
-     * 设置指示器间距
-     */
-    public void setIndicatorMargin(float indicatorMargin) {
-        this.indicatorMargin = indicatorMargin;
-    }
-
-    /**
-     * 获取指示器大小
-     *
-     * @return
-     */
-    public float getIndicatorSize() {
-        return indicatorSize;
-    }
-
-    /**
-     * 设置指示器大小
-     *
-     * @param indicatorSize
-     */
-    public void setIndicatorSize(float indicatorSize) {
-        this.indicatorSize = indicatorSize;
-    }
-
-    /**
-     * 获取指示器背景色
-     */
-    public int getIndicatorBgColor() {
-        return indicatorBgColor;
-    }
-
-    /**
-     * 设置指示器背景色
-     */
-    public void setIndicatorBgColor(int indicatorBgColor) {
-        this.indicatorBgColor = indicatorBgColor;
-        indicator.setBackgroundColor(indicatorBgColor);
-    }
-
-    /**
-     * 获取指示器区域高度
-     */
-    public float getIndicatorHeight() {
-        return indicatorHeight;
-    }
-
-    /**
-     * 设置指示器区域高度
-     */
-    public void setIndicatorHeight(float indicatorHeight) {
-        this.indicatorHeight = indicatorHeight;
-        LinearLayout.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) indicatorHeight);
-        indicator.setLayoutParams(params);
-    }
-
-    /**
-     * 获取滚动时间
-     */
-    public int getSlideTime() {
-        return slideTime;
-    }
-
-    /**
-     * 设置滚动时间
-     */
-    public void setSlideTime(int slideTime) {
-        this.slideTime = slideTime;
-    }
-
-    /**
-     * 获取标题文字颜色
-     */
-    public int getTitleColor() {
-        return titleColor;
-    }
-
-    /**
-     * 设置标题文字颜色
-     */
-    public void setTitleColor(int titleColor) {
-        this.titleColor = titleColor;
-    }
-
-    /**
-     * 获取标题文字大小
-     */
-    public float getTitleSize() {
-        return titleSize;
-    }
-
-    /**
-     * 设置标题文字大小
-     */
-    public void setTitleSize(float titleSize) {
-        this.titleSize = titleSize;
-    }
-
-    /**
-     * 不需要标题
-     */
-    public void needlessTitle() {
-        isTitle = false;
-    }
-
-    /**
-     * 设置指示器
-     *
-     * @param indicator   当前显示状态
-     * @param unIndicator 未显示状态
-     */
-    public void setIndicatorSelecter(int indicator, int unIndicator) {
-        StateListDrawable drawable = new StateListDrawable();
-        Drawable normal = context.getResources().getDrawable(unIndicator);
-        Drawable checked = context.getResources().getDrawable(indicator);
-        drawable.addState(new int[]{android.R.attr.checkable}, checked);
-        drawable.addState(new int[]{-android.R.attr.checkable}, normal);
-
-    }
-
-    /**
-     * 设置指示器
-     *
-     * @param indicatorSelecter 状态选择器
-     */
-    public void setIndicatorSelecter(int indicatorSelecter) {
-        mIndicatorSelecter = indicatorSelecter;
-    }
-
-    /**
-     * 设置轮播图数据
-     *
-     * @param infoList
-     */
-    public void setData(List<Info> infoList) {
-        this.infoList = infoList;
-    }
-
-    /**
-     * 设置点击监听
-     */
-    public void setSlideOnItemClickLisenter(OnItemClickLisenter onItemClickLisenter) {
-        this.onItemClickLisenter = onItemClickLisenter;
-    }
-
-    public void commit() {
-        initBannerImage();
-        setIndicator();
-        bindingViewPager();
-        initSlide();
-        new Handler().postDelayed(task, slideTime);
-    }
-
-    /**
-     * =================================================================================================================
-     */
-    /**
-     * 开始轮播
+     * 初始化轮播
      */
     private void initSlide() {
-        task = new Runnable() {
-            @Override
-            public void run() {
-                if (isAutoPlay) {
-                    banners.setCurrentItem(banners.getCurrentItem() + 1);
-                }
-                new Handler().postDelayed(task, slideTime);
-            }
-        };
+
     }
 
     /**
@@ -464,5 +296,157 @@ public class SlideShow extends FrameLayout {
      */
     public interface OnItemClickLisenter {
         void onClickLisenter(int position);
+    }
+
+    /*-----------------------------------------------对外方法----------------------------------------------------*/
+    //----------------------------初始化方法------------------------------------
+
+    /**
+     * 设置指示器间距
+     */
+    public SlideShow setIndicatorMargin(float indicatorMargin) {
+        this.indicatorMargin = indicatorMargin;
+        return this;
+    }
+
+    /**
+     * 设置指示器大小
+     *
+     * @param indicatorSize
+     */
+    public SlideShow setIndicatorSize(float indicatorSize) {
+        this.indicatorSize = indicatorSize;
+        return this;
+    }
+
+    /**
+     * 设置指示器背景色
+     */
+    public SlideShow setIndicatorBgColor(int indicatorBgColor) {
+        this.indicatorBgColor = indicatorBgColor;
+        indicator.setBackgroundColor(indicatorBgColor);
+        return this;
+    }
+
+    /**
+     * 设置指示器区域高度
+     */
+    public SlideShow setIndicatorHeight(float indicatorHeight) {
+        this.indicatorHeight = indicatorHeight;
+        LinearLayout.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) indicatorHeight);
+        indicator.setLayoutParams(params);
+        return this;
+    }
+
+    /**
+     * 设置滚动时间
+     */
+    public SlideShow setSlideTime(int slideTime) {
+        this.slideTime = slideTime;
+        return this;
+    }
+
+    /**
+     * 设置标题文字颜色
+     */
+    public SlideShow setTitleColor(int titleColor) {
+        this.titleColor = titleColor;
+        return this;
+    }
+
+    /**
+     * 设置标题文字大小
+     */
+    public SlideShow setTitleSize(float titleSize) {
+        this.titleSize = titleSize;
+        return this;
+    }
+
+    /**
+     * 设置是否需要标题
+     */
+    public SlideShow setTitleEnable(boolean titleEnable) {
+        isTitle = titleEnable;
+        return this;
+    }
+
+    /**
+     * 设置指示器
+     *
+     * @param indicatorSelecter 状态选择器
+     */
+    public SlideShow setIndicatorSelecter(int indicatorSelecter) {
+        mIndicatorSelecter = indicatorSelecter;
+        return this;
+    }
+
+    /**
+     * 设置轮播图数据
+     *
+     * @param infoList
+     */
+    public SlideShow setData(List<Info> infoList) {
+        this.infoList = infoList;
+        return this;
+    }
+
+    /**
+     * 设置点击监听
+     */
+    public SlideShow setSlideOnItemClickLisenter(OnItemClickLisenter onItemClickLisenter) {
+        this.onItemClickLisenter = onItemClickLisenter;
+        return this;
+    }
+
+    /**
+     * 设置指示器
+     *
+     * @param indicator   当前显示状态
+     * @param unIndicator 未显示状态
+     */
+    public SlideShow setIndicatorSelecter(int indicator, int unIndicator) {
+        StateListDrawable drawable = new StateListDrawable();
+        Drawable normal = context.getResources().getDrawable(unIndicator);
+        Drawable checked = context.getResources().getDrawable(indicator);
+        drawable.addState(new int[]{android.R.attr.checkable}, checked);
+        drawable.addState(new int[]{-android.R.attr.checkable}, normal);
+        return this;
+    }
+
+    public void commit() {
+        initBannerImage();
+        setIndicator();
+        bindingViewPager();
+    }
+//------------------------------------操作方法--------------------------------------------------
+
+    /**
+     * 开始轮播
+     */
+    public void startSlide() {
+        task = new Runnable() {
+            @Override
+            public void run() {
+                if (isAutoPlay) {
+                    banners.setCurrentItem(banners.getCurrentItem() + 1);
+                }
+                if (handler == null)
+                    handler = new Handler();
+                handler.postDelayed(task, slideTime);
+            }
+        };
+        if (handler1 == null)
+            handler1 = new Handler();
+        handler1.postDelayed(task, slideTime);
+    }
+
+    /**
+     * 停止轮播
+     */
+    public void cancelSlide() {
+        handler.removeCallbacks(task);
+        handler1.removeCallbacks(task);
+        if (task != null)
+            task = null;
     }
 }
