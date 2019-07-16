@@ -2,10 +2,10 @@
 <resources>
     <declare-styleable name="SlideShow">
         <attr name="indicatorHeight" format="dimension" />
-        <attr name="indicatorBgColor" format="color" />
+        <attr name="indicatorBgColor" format="color|integer" />
         <attr name="indicatorSize" format="dimension" />
         <attr name="indicatorMargin" format="dimension" />
-        <attr name="slideTime" format="integer"/>
+        <attr name="slideTime" format="integer" />
         <attr name="indicatorSelecter" format="reference" />
     </declare-styleable>
 </resources>

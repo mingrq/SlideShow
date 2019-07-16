@@ -8,6 +8,7 @@
         android:id="@+id/ss"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        slide:indicatorHeight="50dp"/>
+        slide:indicatorHeight="50dp"
+        slide:indicatorBgColor="0x00000000"/>
 
 </FrameLayout>

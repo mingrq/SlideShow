@@ -178,7 +178,7 @@ public class SlideShow extends FrameLayout {
 
             @Override
             public void onPageSelected(int i) {
-                int currentItem = -1;
+                int currentItem;
                 if (i == 0) {
                     currentItem = infoList.size() - 1;
                 } else if (i == infoList.size() + 1) {
@@ -332,7 +332,6 @@ public class SlideShow extends FrameLayout {
         this.slideTime = slideTime;
         return this;
     }
-
 
     /**
      * 设置指示器

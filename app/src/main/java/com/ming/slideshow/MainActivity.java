@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     slideShow.startSlide();
                 }
-
             }
         });
         slideShow.setSlideOnItemTouchLisenter(new SlideShow.OnItemTouchLisenter() {
