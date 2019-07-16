@@ -327,6 +327,8 @@ public class SlideShow extends FrameLayout {
 
     /**
      * 设置滚动时间
+     * @param slideTime 单位 毫秒
+     * @return
      */
     public SlideShow setSlideTime(int slideTime) {
         this.slideTime = slideTime;
@@ -334,7 +336,7 @@ public class SlideShow extends FrameLayout {
     }
 
     /**
-     * 设置指示器
+     * 设置指示器图标选择器
      *
      * @param indicatorSelecter 状态选择器
      */
@@ -366,21 +368,6 @@ public class SlideShow extends FrameLayout {
      */
     public SlideShow setSlideOnItemTouchLisenter(OnItemTouchLisenter onItemTouchLisenter) {
         this.onItemTouchLisenter = onItemTouchLisenter;
-        return this;
-    }
-
-    /**
-     * 设置指示器
-     *
-     * @param indicator   当前显示状态
-     * @param unIndicator 未显示状态
-     */
-    public SlideShow setIndicatorSelecter(int indicator, int unIndicator) {
-        StateListDrawable drawable = new StateListDrawable();
-        Drawable normal = context.getResources().getDrawable(unIndicator);
-        Drawable checked = context.getResources().getDrawable(indicator);
-        drawable.addState(new int[]{android.R.attr.checkable}, checked);
-        drawable.addState(new int[]{-android.R.attr.checkable}, normal);
         return this;
     }
 
