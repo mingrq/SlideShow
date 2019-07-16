@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:slide="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ming.com.slideshow_lib.SlideShow
         android:id="@+id/ss"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="300dp"
+        slide:indicatorHeight="50dp"/>
 
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>
