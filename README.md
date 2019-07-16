@@ -94,9 +94,10 @@ dpValues：dp单位值
 #
 ### void commit() 
 #### 提交
-
+#
 
 ### _操作_
+#
 
 ### void startSlide()
 #### 开始轮播
